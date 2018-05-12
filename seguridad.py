@@ -13,7 +13,7 @@ Fecha:11/05/2018.
 """
 
 """
-La clase Segurida representa un objeto para la validacion de usuarios en una
+La clase Seguridad representa un objeto para la validacion de usuarios en una
 aplicacion web.
 
 Los metodos son de inicializacion (init), registrarUsuario e ingresarUsuario.
