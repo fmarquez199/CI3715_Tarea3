@@ -28,13 +28,18 @@ Los casos de prueba son, por orden de aplicacion:
     8.  test_Seguridad_clave_min_una_mayuscula: Verifica que la clave tenga al
                                                 menos una mayuscula.
 
-    9.  test_Seguridad_9:
+    9.  test_Seguridad_clave_min_una_minuscula: Verifica que la clave tenga al
+                                                menos una mayuscula.
 
-    10. test_Seguridad_10:
+    10. test_Seguridad_clave_min_un_digito: Verifica que la clave tenga al
+                                            menos un digito.
 
-    11. test_Seguridad_11:
+    11. test_Seguridad_claves_iguales: Verifica que las claves dadas como
+                                       parametros sean iguales.
 
-    12. test_Seguridad_12:
+    12. test_Seguridad_se_actualiza_diccionario: Verifica que se actualiza el 
+                                                 diccionario, cuando los datos
+                                                 ingresados son correctos.
 
     13. test_Seguridad_13:
 
@@ -131,6 +136,25 @@ class SeguridadTestCase(unittest.TestCase):
         pswd2 = "UsbiDdepRueba"
         valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
         self.assertEqual(valid, False)
+
+    #Verifica que las claves dadas como parametros sean iguales.
+    def test_Seguridad_claves_iguales(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3pRu384"
+        pswd2 = "u581Dd3pRu384"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que se actualiza el diccionario, cuando los datos ingresados son
+    #correctos.
+    def test_Seguridad_se_actualiza_diccionario(self) -> 'void':
+        bfore = len(self.seguridad.users)
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3pRu384"
+        pswd2 = "U581Dd3pRu384"
+        self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        after = len(self.seguridad.users)
+        self.assertNotEqual(bfore, after)
 
 if __name__ == '__main__':
 	unittest.main()

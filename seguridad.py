@@ -21,6 +21,7 @@ Los metodos son de inicializacion (init), registrarUsuario e ingresarUsuario.
 
 class Seguridad():
 	def __init__(self):
+		self.users = {}
 		self.email_format = re.compile(
 			'([a-zA-Z0-9]+)@([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)')
 		self.no_alfan = re.compile('.*[^a-zA-Z0-9]+.*')
@@ -38,9 +39,12 @@ class Seguridad():
 		pdigit01 = self.digit_01.match(pswd1) != None
 		password = plen_min and plen_max and pnoalfan and p3letras and pmayus01
 		password = password and pminus01 and pdigit01
+		samepass = pswd1 == pswd2
 		try:
 			assert(id_email)
 			assert(password)
+			assert(samepass)
+			self.users[email] = pswd1
 		except:
 			if not id_email:
 				print("Correo electrónico inválido")
@@ -60,5 +64,7 @@ class Seguridad():
 				print("La clave no tiene minusculas")
 			if not pdigit01:
 				print("La clave no tiene numeros")
+			if not samepass:
+				print("Las claves no coinciden")
 		finally:
-			return id_email and password
+			return id_email and password and samepass
