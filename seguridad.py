@@ -74,7 +74,7 @@ class Seguridad():
 			assert(nw_email)
 			assert(password)
 			assert(samepass)
-			self.users[email] = pswd1
+			self.users[email] = pswd1[::-1]
 		except:
 			if not id_email:
 				print("Correo electrónico inválido")
