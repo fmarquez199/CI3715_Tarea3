@@ -116,5 +116,21 @@ class SeguridadTestCase(unittest.TestCase):
         valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
         self.assertEqual(valid, False)
 
+    #Verifica que la clave tenga al menos una minuscula.
+    def test_Seguridad_clave_min_una_minuscula(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "U581DD3PRU384"
+        pswd2 = "U581DD3PRU384"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que la clave tenga al menos un digito.
+    def test_Seguridad_clave_min_un_digito(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "UsbiDdepRueba"
+        pswd2 = "UsbiDdepRueba"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
 if __name__ == '__main__':
 	unittest.main()

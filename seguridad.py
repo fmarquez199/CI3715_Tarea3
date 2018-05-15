@@ -34,7 +34,10 @@ class Seguridad():
 		pnoalfan = self.no_alfan.match(pswd1) == None
 		p3letras = self.letras_3.match(pswd1) != None
 		pmayus01 = self.mayus_01.match(pswd1) != None
+		pminus01 = self.minus_01.match(pswd1) != None
+		pdigit01 = self.digit_01.match(pswd1) != None
 		password = plen_min and plen_max and pnoalfan and p3letras and pmayus01
+		password = password and pminus01 and pdigit01
 		try:
 			assert(id_email)
 			assert(password)
@@ -53,5 +56,9 @@ class Seguridad():
 				print("La clave tiene menos de 3 letras")
 			if not pmayus01:
 				print("La clave no tiene mayusculas")
+			if not pminus01:
+				print("La clave no tiene minusculas")
+			if not pdigit01:
+				print("La clave no tiene numeros")
 		finally:
 			return id_email and password
