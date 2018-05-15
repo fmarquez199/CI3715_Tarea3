@@ -5,9 +5,10 @@ Titulo: casos_de_prueba.py
 Descripcion: Implementacion de casos de prueba para la funcion clase Seguridad.
 Los casos de prueba son, por orden de aplicacion:
 
-    1.  test_Seguridad_1: Verifica que exista la clase Seguridad.
+    1.  test_Seguridad_existe: Verifica que exista la clase Seguridad.
 
-    2.  test_Seguridad_2:
+    2.  test_Seguridad_existe_metodo_registrar: Verifica que exista el metodo
+                                                registrarUsuario.
 
     3.  test_Seguridad_3:
 
@@ -40,7 +41,7 @@ Autores: Andre Cocuera     	12-10660
 
 Equipo: Null Pointer Exception
 
-Fecha: 11/05/2018.
+Fecha: 15/05/2018.
 """
 
 import unittest
@@ -49,8 +50,16 @@ from seguridad import Seguridad
 class SeguridadTestCase(unittest.TestCase):
 
     #Verifica que exista la clase Seguridad.
-    def test_Seguridad_1(self) -> 'void':
+    def test_Seguridad_existe(self) -> 'void':
         valid = Seguridad()
+        self.assertNotEqual(valid, None)
+
+    #Verifica que exista el metodo registrarUsuario.
+    def test_Seguridad_existe_metodo_registrar(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3pRu384"
+        pswd2 = "U581Dd3pRu384"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
         self.assertNotEqual(valid, None)
 
 if __name__ == '__main__':

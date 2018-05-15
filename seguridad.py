@@ -22,3 +22,6 @@ Los metodos son de inicializacion (init), registrarUsuario e ingresarUsuario.
 class Seguridad():
 	def __init__(self):
 		pass
+
+	def registrarUsuario(self, email: str, pswd1: str, pswd2: str) -> bool:
+		pass
