@@ -41,11 +41,16 @@ Los casos de prueba son, por orden de aplicacion:
                                                  diccionario, cuando los datos
                                                  ingresados son correctos.
 
-    13. test_Seguridad_13:
+    13. test_Seguridad_existe_metodo_ingresar: Verifica que exista un metodo
+                                               ingresarUsuario.
 
-    14. test_Seguridad_14:
+    14. test_Seguridad_ingreasar_datos_incorrectos: Verifica que se manejen los
+                                                    datos errados en el metodo
+                                                    ingresarUsuario.
 
-    15. test_Seguridad_15:
+    15. test_Seguridad_registrar_email_usado: Verifica que no se pueda 
+                                              registrar un usuario con un email
+                                              existente.
 
 Autores: Andre Cocuera     	12-10660
          Francisco Marquez  12-11163
@@ -59,6 +64,12 @@ import unittest
 from seguridad import Seguridad
 
 class SeguridadTestCase(unittest.TestCase):
+
+    def setUp(self) -> 'void':
+        self.seguridad = Seguridad()
+
+    def tearDown(self) -> 'void':
+        self.seguridad = None
 
     #Verifica que exista la clase Seguridad.
     def test_Seguridad_existe(self) -> 'void':
@@ -155,6 +166,31 @@ class SeguridadTestCase(unittest.TestCase):
         self.seguridad.registrarUsuario(email, pswd1, pswd2)
         after = len(self.seguridad.users)
         self.assertNotEqual(bfore, after)
+
+    #Verifica que exista un metodo ingresarUsuario.
+    def test_Seguridad_existe_metodo_ingresar(self) -> 'void':
+        self.seguridad.users["usbid@usb.ve"] = "U581Dd3pRu384"
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3pRu384"
+        valid = self.seguridad.ingresarUsuario(email, pswd1)
+        self.assertEqual(valid, True)
+
+    #Verifica que se manejen los datos errados en el metodo ingresarUsuario.
+    def test_Seguridad_ingreasar_datos_incorrectos(self) -> 'void':
+        self.seguridad.users["usbid@usb.ve"] = "U581Dd3pRu384"
+        email = "usbi@usb.ve"
+        pswd1 = "U581Dd3xRu384"
+        valid = self.seguridad.ingresarUsuario(email, pswd1)
+        self.assertEqual(valid, False)
+
+    #Verifica que no se pueda registrar un usuario con un email existente.
+    def test_Seguridad_registrar_email_usado(self) -> 'void':
+        self.seguridad.users["usbid@usb.ve"] = "U581Dd3pRu384"
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3xRu384"
+        pswd2 = "U581Dd3xRu384"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
 
 if __name__ == '__main__':
 	unittest.main()
