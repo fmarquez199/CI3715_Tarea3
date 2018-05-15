@@ -24,4 +24,18 @@ class Seguridad():
 		pass
 
 	def registrarUsuario(self, email: str, pswd1: str, pswd2: str) -> bool:
-		pass
+		id_email = self.email_format.match(email) != None
+		plen_min = len(pswd1) > 7
+		password = plen_min
+		try:
+			assert(id_email)
+			assert(password)
+		except:
+			if not id_email:
+				print("Correo electrónico inválido")
+			if not password:
+				print("Clave inválida")
+			if not plen_min:
+				print("La clave tiene menos de 8 caracteres")
+		finally:
+			return id_email and password

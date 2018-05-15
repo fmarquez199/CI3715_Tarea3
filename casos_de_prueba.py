@@ -10,9 +10,11 @@ Los casos de prueba son, por orden de aplicacion:
     2.  test_Seguridad_existe_metodo_registrar: Verifica que exista el metodo
                                                 registrarUsuario.
 
-    3.  test_Seguridad_3:
+    3.  test_Seguridad_email_valido: Verifica que el id de correo sea valido
+                                     segun el estandar RFC 822.
 
-    4.  test_Seguridad_4:
+    4.  test_Seguridad_clave_long_ocho_min: Verifica que la clave tenga
+                                            longitud mayor que 7.
 
     5.  test_Seguridad_5:
 
@@ -61,6 +63,22 @@ class SeguridadTestCase(unittest.TestCase):
         pswd2 = "U581Dd3pRu384"
         valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
         self.assertNotEqual(valid, None)
+
+    #Verifica que el id de correo sea valido segun el estandar RFC 822.
+    def test_Seguridad_email_valido(self) -> 'void':
+        email = "usbid!@usb.ve"
+        pswd1 = "U581Dd3pRu384"
+        pswd2 = "U581Dd3pRu384"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que la clave tenga longitud mayor que 7.
+    def test_Seguridad_clave_long_ocho_min(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "U5d3"
+        pswd2 = "U5d3"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
 
 if __name__ == '__main__':
 	unittest.main()
