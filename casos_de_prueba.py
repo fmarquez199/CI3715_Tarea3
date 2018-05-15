@@ -22,9 +22,11 @@ Los casos de prueba son, por orden de aplicacion:
     6.  test_Seguridad_clave_solo_alfanumericos: Verifica que la clave no tenga
                                                  caracteres no alfanumericos.
 
-    7.  test_Seguridad_7:
+    7.  test_Seguridad_clave_min_tres_letras: Verifica que la clave tenga al
+                                              menos tres letras.
 
-    8.  test_Seguridad_8:
+    8.  test_Seguridad_clave_min_una_mayuscula: Verifica que la clave tenga al
+                                                menos una mayuscula.
 
     9.  test_Seguridad_9:
 
@@ -95,6 +97,22 @@ class SeguridadTestCase(unittest.TestCase):
         email = "usbid@usb.ve"
         pswd1 = "U581Dd3pRu384!"
         pswd2 = "U581Dd3pRu384!"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que la clave tenga al menos tres letras.
+    def test_Seguridad_clave_min_tres_letras(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "1211163121o66o"
+        pswd2 = "1211163121o66o"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que la clave tenga al menos una mayuscula.
+    def test_Seguridad_clave_min_una_mayuscula(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "u581dd3pru384"
+        pswd2 = "u581dd3pru384"
         valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
         self.assertEqual(valid, False)
 

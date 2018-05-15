@@ -21,14 +21,20 @@ Los metodos son de inicializacion (init), registrarUsuario e ingresarUsuario.
 
 class Seguridad():
 	def __init__(self):
-		pass
+		self.email_format = re.compile(
+			'([a-zA-Z0-9]+)@([a-zA-Z0-9]+)(\.)([a-zA-Z0-9]+)')
+		self.no_alfan = re.compile('.*[^a-zA-Z0-9]+.*')
+		self.letras_3 = re.compile('.*[a-zA-Z].*[a-zA-Z].*[a-zA-Z].*')
+		self.mayus_01 = re.compile('.*[A-Z].*')
 
 	def registrarUsuario(self, email: str, pswd1: str, pswd2: str) -> bool:
 		id_email = self.email_format.match(email) != None
 		plen_min = len(pswd1) > 7
 		plen_max = len(pswd1) < 17
 		pnoalfan = self.no_alfan.match(pswd1) == None
-		password = plen_min and plen_max and pnoalfan
+		p3letras = self.letras_3.match(pswd1) != None
+		pmayus01 = self.mayus_01.match(pswd1) != None
+		password = plen_min and plen_max and pnoalfan and p3letras and pmayus01
 		try:
 			assert(id_email)
 			assert(password)
@@ -43,5 +49,9 @@ class Seguridad():
 				print("La clave tiene mas de 16 caracteres")
 			if not pnoalfan:
 				print("La clave tiene algun caracter especial: !,*,...")
+			if not p3letras:
+				print("La clave tiene menos de 3 letras")
+			if not pmayus01:
+				print("La clave no tiene mayusculas")
 		finally:
 			return id_email and password
