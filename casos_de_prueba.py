@@ -16,9 +16,11 @@ Los casos de prueba son, por orden de aplicacion:
     4.  test_Seguridad_clave_long_ocho_min: Verifica que la clave tenga
                                             longitud mayor que 7.
 
-    5.  test_Seguridad_5:
+    5.  test_Seguridad_clave_long_dieciseis_max: Verifica que la clave tenga
+                                                 longitud menor que 17.
 
-    6.  test_Seguridad_6:
+    6.  test_Seguridad_clave_solo_alfanumericos: Verifica que la clave no tenga
+                                                 caracteres no alfanumericos.
 
     7.  test_Seguridad_7:
 
@@ -77,6 +79,22 @@ class SeguridadTestCase(unittest.TestCase):
         email = "usbid@usb.ve"
         pswd1 = "U5d3"
         pswd2 = "U5d3"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que la clave tenga longitud menor que 17.
+    def test_Seguridad_clave_long_dieciseis_max(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3pRu384largo"
+        pswd2 = "U581Dd3pRu384largo"
+        valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
+        self.assertEqual(valid, False)
+
+    #Verifica que la clave no tenga caracteres no alfanumericos.
+    def test_Seguridad_clave_solo_alfanumericos(self) -> 'void':
+        email = "usbid@usb.ve"
+        pswd1 = "U581Dd3pRu384!"
+        pswd2 = "U581Dd3pRu384!"
         valid = self.seguridad.registrarUsuario(email, pswd1, pswd2)
         self.assertEqual(valid, False)
 
